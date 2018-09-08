@@ -23,7 +23,7 @@ if ( ! class_exists( 'Timber' ) ) {
 Timber::$dirname = array( 'templates', 'views' );
 /** Start Timber! */
 
-class StarterSite extends Timber\Site {
+class BitwalkerStarterSite extends Timber\Site {
 	/** Add timber support. */
 	public function __construct() {
 		add_theme_support( 'post-formats' );
@@ -79,4 +79,4 @@ class StarterSite extends Timber\Site {
 
 }
 
-new StarterSite();
+new BitwalkerStarterSite();

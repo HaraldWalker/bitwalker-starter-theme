@@ -7,32 +7,75 @@
 {% endblock %}
 
 	<body class="{{body_class}}" data-template="base.twig">
-		<header class="header" >
+	<div class="uk-offcanvas-content">
+		<header id="top-head" class="uk-position-fixed">
 			{% block header %}
-				<div class="wrapper">
-					<h1 class="hdr-logo" role="banner">
-						<a class="hdr-logo-link" href="{{site.url}}" rel="home">{{site.name}}</a>
-					</h1>
-					<nav id="nav-main" class="nav-main" role="navigation">
+				<div class="uk-container uk-container-expand uk-background-primary">
+					<nav class="uk-navbar uk-light" data-uk-navbar="mode:click">
+						<div class="uk-navbar-left">
+							<a class="uk-navbar-item uk-logo" href="{{ site.url }}">{{ site.name }}</a>
+						</div>
+						<div class="uk-navbar-center">
+							<div class="uk-navbar-item uk-visible@s">
+								<form action="dashboard.html" class="uk-search uk-search-default">
+									<span data-uk-search-icon></span>
+									<input class="uk-search-input search-field" type="search" placeholder="Search">
+								</form>
+							</div>
+						</div>
+						<div class="uk-navbar-right">
 						{% include "menu.twig" with {'menu': menu.get_items} %}
+						</div>
 					</nav><!-- #nav -->
 				</div>
 			{% endblock %}
 		</header>
-
-		<section id="content" role="main" class="content-wrapper">
-			{% if title %}<h1>{{title}}</h1>{% endif %}
-			<div class="wrapper {{sidebar_class}}">
-				{% block content %}
-					Sorry, no content
-				{% endblock %}
+		<!-- LEFT BAR -->
+		<aside id="left-col" class="uk-light uk-visible@m">
+            {% if sidebar %}
+			<div class="bar-content uk-position-relative">
+                {{sidebar}}
 			</div>
-			{% if sidebar %}
-				<aside class="layout-sidebar">
-					{{sidebar}}
-				</aside>
-			{% endif %}
-		</section>
+            {% endif %}
+            {% block left %}
+            {% endblock %}
+			<div class="uk-position-bottom">
+				<div class="uk-grid uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+                   <!-- widget area left sidebar bottom-->
+				</div>
+			</div>
+			<div class="uk-position-bottom bar-bottom">
+				<ul class="uk-subnav uk-flex uk-flex-center uk-child-width-1-6" data-uk-grid>
+					<li>
+						<a href="{{ site.url }}" class="uk-icon-link" data-uk-icon="icon: home"></a>
+					</li>
+					<li>
+						<a href="#" class="uk-icon-link" data-uk-icon="icon: settings"></a>
+					</li>
+					<li>
+						<a href="#" class="uk-icon-link" data-uk-icon="icon: social"></a>
+					</li>
+					<li>
+						<a href="#" class="uk-icon-link" data-uk-icon="icon: comment"></a>
+					</li>
+					<li>
+						<a href="#" class="uk-icon-link" data-uk-tooltip="Sign out" data-uk-icon="icon: sign-out"></a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<!-- /LEFT BAR -->
+		<!-- CONTENT -->
+		<div id="content" data-uk-height-viewport="expand: true">
+			<div class="uk-container uk-container-expand">
+				<div class="uk-container">
+                    {% if title %}<h1>{{title}}</h1>{% endif %}
+                    {% block content %}
+						Sorry, no content
+                    {% endblock %}
+				</div>
+			</div>
+		</div>
 
 		{% block footer %}
 			<footer id="footer">
@@ -40,5 +83,8 @@
 			</footer>
 			{{ function('wp_footer') }}
 		{% endblock %}
+	</div>
+		<script src="{{ site.theme.link }}/static/js/uikit.min.js"></script>
+		<script src="{{ site.theme.link }}/static/js/uikit-icons.min.js"></script>
 	</body>
 </html>
