@@ -34,6 +34,26 @@ class BitwalkerStarterSite extends Timber\Site {
 		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		register_sidebar( array(
+			'name' => 'Left sidebar top',
+			'id' => 'left_sidebar_top',
+			'before_widget' => '<div>',
+			'after_widget' => '</div>',
+			'before_title' => '<h2 class="rounded">',
+			'after_title' => '</h2>',
+		) );
+		register_sidebar( array(
+			'name' => 'Left sidebar bottom',
+			'id' => 'left_sidebar_bottom',
+			'before_widget' => '<div>',
+			'after_widget' => '</div>',
+			'before_title' => '<h2 class="rounded">',
+			'after_title' => '</h2>',
+		) );
+		register_nav_menus( array(
+			'top_menu' => 'Menu in the top navigation bar',
+			'side_menu' => 'Menu in the left side navigation',
+		) );
 		parent::__construct();
 	}
 	/** This is where you can register custom post types. */
@@ -53,7 +73,8 @@ class BitwalkerStarterSite extends Timber\Site {
 		$context['foo'] = 'bar';
 		$context['stuff'] = 'I am a value set in your functions.php file';
 		$context['notes'] = 'These values are available everytime you call Timber::get_context();';
-		$context['menu'] = new Timber\Menu();
+		$context['top_menu'] = new Timber\Menu("top_menu");
+		$context['side_menu'] = new Timber\Menu("side_menu");
 		$context['site'] = $this;
 		return $context;
 	}

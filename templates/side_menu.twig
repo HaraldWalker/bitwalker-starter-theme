@@ -1,0 +1,11 @@
+{% if side_menu %}
+	<ul class="uk-nav-default uk-nav-parent-icon" data-uk-nav>
+		<li class="uk-nav-header">{{ side_menu.title }}</li>
+	{% for item in side_menu.get_items %}
+		<li class="{{ item.classes | join(' ') }}{% if item.current %} uk-active{% endif %}">
+			<a target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+			{% include "side_menu_sub.twig" with {'side_menu_sub': item.get_children} %}
+		</li>
+	{% endfor %}
+	</ul>
+{% endif %}

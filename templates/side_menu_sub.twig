@@ -1,9 +1,9 @@
-{% if top_menu %}
-	<ul class="uk-navbar-nav">
-	{% for item in top_menu %}
+{% if side_menu_sub %}
+	<ul class="uk-nav-sub">
+	{% for item in side_menu.items %}
 		<li class="{{ item.classes | join(' ') }}{% if item.current %} uk-active{% endif %}">
 			<a target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
-			{% include "menu.twig" with {'top_menu': item.get_children} %}
+			{% include "side_menu_sub.twig" with {'side_menu_sub': item.get_children} %}
 		</li>
 	{% endfor %}
 	</ul>

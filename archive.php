@@ -36,5 +36,6 @@ if ( is_day() ) {
 }
 
 $context['posts'] = new Timber\PostQuery();
-
+$context['left_sidebar_top'] = Timber::get_widgets('left_sidebar_top');
+$context['left_sidebar_bottom'] = Timber::get_widgets('left_sidebar_bottom');
 Timber::render( $templates, $context );
