@@ -20,6 +20,8 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+require_once "widgets/Timber_Nav_Menu_Widget.php";
+
 Timber::$dirname = array( 'templates', 'views' );
 /** Start Timber! */
 
@@ -34,6 +36,7 @@ class BitwalkerStarterSite extends Timber\Site {
 		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		add_action('wp_head', array( $this,'show_template'));
 		register_sidebar( array(
 			'name' => 'Left sidebar top',
 			'id' => 'left_sidebar_top',
@@ -54,8 +57,17 @@ class BitwalkerStarterSite extends Timber\Site {
 			'top_menu' => 'Menu in the top navigation bar',
 			'side_menu' => 'Menu in the left side navigation',
 		) );
+		// replace widgets
+		add_action('widgets_init', 'timber_nav_menu_widget_registration');
 		parent::__construct();
 	}
+
+
+	function show_template() {
+		global $template;
+		echo basename($template);
+	}
+
 	/** This is where you can register custom post types. */
 	public function register_post_types() {
 

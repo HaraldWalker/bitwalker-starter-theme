@@ -32,11 +32,6 @@
 		</header>
 		<!-- LEFT BAR -->
 		<aside id="left-col" class="uk-light uk-visible@m">
-            {% if side_menu %}
-			<div class="bar-content uk-position-relative">
-            	{% include "side_menu.twig" with {'side_menu': side_menu} %}
-			</div>
-            {% endif %}
             {% if left_sidebar_top %}
 			<div class="bar-content uk-position-relative">
                 {{left_sidebar_top}}
